@@ -47,7 +47,23 @@ int main(){
 
 //function that creates border around terminal and creates the initial snake
 void start_game(){
-    //create border here        
+    //border created to the x and y limits of the window, I.E. COLS-1, LINES-1, using * as the border
+    char border = '*';
+    for(int i = 0;i<COLS-1;i++) //150
+        {
+            move(0,i);
+            addstr(&border);
+            move(LINES-1,i);
+            addstr(&border);
+        }      
+
+        for(int j=1;j<LINES-1;j++)
+        {
+            move(j,0);
+            addstr(&border);
+            move(j,COLS-1);
+            addstr(&border);
+        }
 
     //initialize snake in middle of terminal
     y = LINES/2;

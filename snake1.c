@@ -38,6 +38,7 @@ int main(){
             break;
         case KEY_DOWN:
             move_down();
+            break;
     }
 
     getch();

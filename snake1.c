@@ -47,9 +47,10 @@ int main(){
 
 //function that creates border around terminal and creates the initial snake
 void start_game(){
-    //border created to the x and y limits of the window, I.E. COLS-1, LINES-1, using * as the border
+    //white on red border created to the x and y limits of the window, I.E. COLS-1, LINES-1, using * as the border
+    attron(COLOR_PAIR(1));
     char border = '*';
-    for(int i = 0;i<COLS-1;i++) //150
+    for(int i = 0;i<COLS;i++) //150
         {
             move(0,i);
             addstr(&border);
@@ -64,6 +65,9 @@ void start_game(){
             move(j,COLS-1);
             addstr(&border);
         }
+
+        attroff(COLOR_PAIR(1));
+        
 
     //initialize snake in middle of terminal
     y = LINES/2;

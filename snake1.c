@@ -25,7 +25,7 @@ int main(){
     move_right();
     
 //switch that will take user input and call movement function based on which arrow key was pressed
-    int ch;
+    int ch = getch();
     switch (ch){
         case KEY_RIGHT:
             move_right();

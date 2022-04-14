@@ -45,7 +45,7 @@ void start_game(){
 void move_right(){
     move(y, x);
     int temp = x + snakeLength;
-    while(temp < COLS-1 || getch()){             //moves the snake to the right by adding 
+    while(temp < COLS-1){                        //moves the snake to the right by adding 
         move(y, temp++);                         //characters to the front of the snake
         addstr("~");                             //and adding a blank space to where the 
         refresh();                               //last character of the snake was

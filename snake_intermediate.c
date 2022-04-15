@@ -305,4 +305,4 @@ int keyboard_hit(void)
   return 0;
 }
 //Charles Lewis: Finished working code and did some minor bug fixes(User being able to press opposite direction arrow twice before game over was detected)
-//Mike Ronalter: Worked on border and intial setup of snake
+//Mike Ronalter: Created border and intial setup of snake

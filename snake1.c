@@ -92,3 +92,32 @@ void move_right(){
         x++;
     }
 }
+
+void move_left(){
+    
+}
+
+void move_up(){
+    int temp_y = y;
+    int temp_x = x + snakeLength;
+    while (temp_y > 1){
+        move(--temp_y, temp_x);
+        addstr("~");
+
+        if (x == temp_x){
+            move(y-1, x);
+            addstr("  ");
+            y--;
+        } else {
+            move(y, x);
+            addstr("  ");
+            x++;
+        }
+        refresh();
+        sleep(1);
+    }
+}
+
+void move_down(){
+    
+}

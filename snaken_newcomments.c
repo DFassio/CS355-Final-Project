@@ -177,7 +177,7 @@ int keyboard_hit(void)
   return 0;
 }
 
-//moves the snake to the current 
+//moves the snake to the cursor position
 void snake_loc(snake *snake1, snake_pos *pos1)
 {
     int i;
@@ -288,7 +288,7 @@ void move_cur(int x,int y)
 
 
 
-//Copy the 0 unsigned char to 
+//Copy the 0 unsigned char to sizeof onto pointer position
 void init_pos(snake_pos *position)
 {
     memset(position, 0, sizeof(*position));

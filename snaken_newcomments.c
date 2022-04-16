@@ -320,3 +320,4 @@ int over(snake *snake1, snake_pos *pos1)
 //Charles Lewis: Finished working code and did some minor bug fixes(User being able to press opposite direction arrow twice before game over was detected).
 //Mike Ronalter: Created border and intial setup of snake on screen moving to the right with size 5.
 //Jonathan Ventres: Created snake moving up, down, side to side, along with checking for keyboard input.
+//Dylan Fassio: Worked on project framework, initializing snake, implementing snake movement logic.

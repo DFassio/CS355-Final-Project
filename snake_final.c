@@ -134,7 +134,7 @@ void borders()
         }
 }
 
-//Initialize the snake  with a size of 3 and a random direction.
+//Initialize the snake  with a size of 3 and a random direction. (Dylan Fassio)
 void snake_init(snake *snake1)
 {
     srand(time(0));

@@ -294,15 +294,11 @@ void snake_move(snake *snake1, snake_pos *pos1, treasure *treasure1)
 //moves the tail by printing " " at the end of the snake
 void move_tail(snake *snake1, snake_pos *pos1)
 {
-    int i;
-
     //remove last cell of tail
     move_cur(pos1->X[0],pos1->Y[0]);
     printf(" ");
-
-
     //update new tail position
-    for (i=0; i<snake1->size; ++i)
+    for (int i=0; i<snake1->size; ++i)
     {
         pos1->X[i]=pos1->X[i+1];
         pos1->Y[i]=pos1->Y[i+1];
@@ -359,8 +355,6 @@ void move_head(snake *snake, snake_pos *pos)
                  break;
         }
 
-
-        // update tail position
         pos->X[snake->size]=snake->head_X;
         pos->Y[snake->size]=snake->head_Y;
 
@@ -476,6 +470,6 @@ void treasure_placement(int signum)
 }
 
 //Charles Lewis: Finished working code and did some minor bug fixes(User being able to press opposite direction arrow twice before game over was detected).
-//Mike Ronalter: Created border and intial setup of snake on screen moving to the right with size 5.
+//Mike Ronalter: Created border and intial setup of snake on screen moving to the right with size 3.
 //Jonathan Ventres: Created snake moving up, down, side to side, modified keyboard input, modified gotoxy and speed based on size.
 //Dylan Fassio: Worked on project framework, initializing snake, implementing snake movement logic.

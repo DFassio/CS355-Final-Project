@@ -476,7 +476,7 @@ void treasure_placement(int signum)
 //prints score in bottom left corner of screen (Dylan Fassio)
 void display_score(snake *snake){
     move_cur(0, COLS-1);
-    printf("Your score is: %d/260", (snake1->size -3));
+    printf("Your score is: %d/260", (snake->size -3));
 }
 
 //Charles Lewis: Finished working code and did some minor bug fixes(User being able to press opposite direction arrow twice before game over was detected).

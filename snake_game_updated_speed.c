@@ -8,7 +8,7 @@
 #include <time.h>
 #include <signal.h>
 
-//Border Size Fixed instead of LINES-1, COL-1
+//Initialize Interior Borders for Snake Starting Location
 #define V_Border 60
 #define H_Border 200
 
@@ -121,7 +121,7 @@ int main()
       {
 
     //While no key pressed move snake in current direction, update speed of snake based on size of snake
-
+    //(Jon Ventres)
           while (!keyboard_hit())
           {
               if(snake1.size ==3){
@@ -156,7 +156,7 @@ int main()
 
       return 0;
 }
-//initializes the borders for the program (first and last column, first and last row, filled with *'s)
+//Mike and Jon: Initializes the borders for the program (first and last column, first and last row, filled with *'s)
 void borders()
 {
     for (int i=0; i<LINES-1;i++)
@@ -214,12 +214,9 @@ void snake_init(snake *snake1)
     }
 }
 
-
-
-//Setups terminal connection attributes, treating keyboard inputs. Returns 1 if keys are hit, 0 if not.
+//Jon Ventres: Setup terminal connection attributes, treating keyboard inputs. Returns 1 if keys are hit, 0 if not.
 int keyboard_hit(void)
 {
-  
   struct termios oldt, newt;
   int ch;
   int oldf;
@@ -251,7 +248,7 @@ int keyboard_hit(void)
   return 0;
 }
 
-//moves the snake to the cursor position
+//Jon Ventres: moves the snake to the cursor position
 void snake_loc(snake *snake1, snake_pos *pos1)
 {
     int i;
@@ -267,7 +264,7 @@ void snake_loc(snake *snake1, snake_pos *pos1)
 }
 
 
-//Moves the head and tail of the snake. used in the main method.
+//Mike and Jon: Moves the head and tail of the snake. used in the main method.
 void snake_move(snake *snake1, snake_pos *pos1, treasure *treasure1)
 {
     move_head(snake1,pos1);
@@ -313,7 +310,7 @@ void move_tail(snake *snake1, snake_pos *pos1)
 }
 
 
-//moves the head in the direction specified by main method. if the user trues going in the opposite direction, it will end the game
+//Jon Ventres: moves the head in the direction specified by main method. if the user trues going in the opposite direction, it will end the game
 void move_head(snake *snake, snake_pos *pos)
 {
 //Snake direction based off defined ascii codes for "w,a,s,d" 
@@ -368,21 +365,16 @@ void move_head(snake *snake, snake_pos *pos)
         pos->Y[snake->size]=snake->head_Y;
 
         move_cur(pos->X[snake->size],pos->Y[snake->size]);
-        printf("%c",snake->symbol);
-
-        
+        printf("%c",snake->symbol);        
 }
 
-
-//Set cursor to x,y and esc print
+//Jon Ventres: Set cursor to x,y and esc print
 void move_cur(int x,int y)
 {
     printf("\e[%d;%df",y,x);
 }
 
-
-
-//Copy the 0 unsigned char to sizeof onto pointer position
+//Jon Ventres: Copy the 0 unsigned char to sizeof onto pointer position
 void init_pos(snake_pos *position)
 {
     memset(position, 0, sizeof(*position));
@@ -407,8 +399,6 @@ int over(snake *snake1, snake_pos *pos1)
         {
             return 1;
         }
-
-
     return 0;
 }
 
@@ -434,7 +424,6 @@ void treasure_placement(int signum)
     interval = (rand() % 9) + 1; //1 - 9
 
     treasure1.treasure = interval;
-//Update snake speed based on what number is being displayed, 1 being slowest, 9 being fastest 
     switch(interval){
         case 1:
             alarm(27);
@@ -465,20 +454,10 @@ void treasure_placement(int signum)
             break;
         
     }
-    
-
-    
-
-    
-
-   
     x = (rand() % (COLS-1)); 
-
     //keeps within screen
     if(x<2)
         x=2;
-
-        
     treasure1.X = x;
    
     y = (rand() % (LINES-1)); 
@@ -488,25 +467,15 @@ void treasure_placement(int signum)
         y=2;
    
     treasure1.Y = y;
-
-
-
-    
     //Placement of Treasure
     move_cur(treasure1.X,treasure1.Y);
     printf("%d",interval);
     
-
     treasure1.prev_X = x;
     treasure1.prev_Y = y;
 }
 
-
-
-
-
-
 //Charles Lewis: Finished working code and did some minor bug fixes(User being able to press opposite direction arrow twice before game over was detected).
 //Mike Ronalter: Created border and intial setup of snake on screen moving to the right with size 5.
-//Jonathan Ventres: Created snake moving up, down, side to side, along with checking for keyboard input.
+//Jonathan Ventres: Created snake moving up, down, side to side, modified keyboard input, modified gotoxy and speed based on size.
 //Dylan Fassio: Worked on project framework, initializing snake, implementing snake movement logic.

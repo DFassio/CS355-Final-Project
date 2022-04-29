@@ -251,8 +251,7 @@ int keyboard_hit(void)
 //Jon Ventres: moves the snake to the cursor position
 void snake_loc(snake *snake1, snake_pos *pos1)
 {
-    int i;
-    for (i=0; i<snake1->size; ++i)
+    for (int i=0; i<snake1->size; ++i)
     {
         move_cur(snake1->tail_X,snake1->tail_Y);
         printf("%c",snake1->symbol);

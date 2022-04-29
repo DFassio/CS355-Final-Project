@@ -71,7 +71,8 @@ int over(snake *snake, snake_pos *pos);
 
 //Treasure placement Signal Handler Protoype
 void treasure_placement(int);
-
+//Displays score in bottom left corner of screen
+void display_score(snake *snake);
 
 int keyboard_hit(void);
 void borders();
@@ -114,7 +115,7 @@ int main()
     //Pipe keyboard into program without buffer
       raw();
 
-
+        display_score(&snake1);
     //Runs in one direction until snake hits border
      
       while(!(over(&snake1,&pos1)))
@@ -183,7 +184,7 @@ void snake_init(snake *snake1)
     srand(time(0));
     int init_dir = rand() % 4;
 
-    snake1->symbol = '-';
+    snake1->symbol = 'X';
     snake1->size = 3;
     snake1->tail_X = V_Border/2;
     snake1->tail_Y = H_Border/2;
@@ -284,7 +285,7 @@ void snake_move(snake *snake1, snake_pos *pos1, treasure *treasure1)
             move_tail(snake1, pos1);
 
     
-
+            display_score(snake1);
    
         }
 }
@@ -373,7 +374,7 @@ void init_pos(snake_pos *position)
     memset(position, 0, sizeof(*position));
 }
 
-//Checks to see whether the snake has reached the borders, or if the snake has crashed into itself
+//Jon and Dylan: Checks to see whether the snake has reached the borders, if the snake has crashed into itself, or if player wins
 int over(snake *snake1, snake_pos *pos1)
 {
 
@@ -392,6 +393,10 @@ int over(snake *snake1, snake_pos *pos1)
         {
             return 1;
         }
+    
+    if (snake1->size == 10)
+        return 1;
+    
     return 0;
 }
 
@@ -466,6 +471,12 @@ void treasure_placement(int signum)
     
     treasure1.prev_X = x;
     treasure1.prev_Y = y;
+}
+
+//prints score in bottom left corner of screen (Dylan Fassio)
+void display_score(snake *snake){
+    move_cur(0, COLS-1);
+    printf("Your score is: %d/260", (snake1->size -3));
 }
 
 //Charles Lewis: Finished working code and did some minor bug fixes(User being able to press opposite direction arrow twice before game over was detected).

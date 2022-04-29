@@ -394,7 +394,7 @@ int over(snake *snake1, snake_pos *pos1)
             return 1;
         }
     
-    if (snake1->size == 10)
+    if (snake1->size == (V_Border + H_Border))
         return 1;
     
     return 0;

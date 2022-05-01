@@ -7,19 +7,15 @@
 #include <stdlib.h>
 #include <time.h>
 #include <signal.h>
-
 //Initialize Interior Borders for Snake Starting Location
 #define V_Border 60
 #define H_Border 200
-
 //Ascii Character Numbers
 #define down 115
 #define up 119
 #define left 97
 #define right 100
-
 //Using characters W,A,S,D , respectively, up, left, down, right
-
 //define snake structure
 typedef struct Snake
 {
@@ -31,17 +27,13 @@ typedef struct Snake
     int tail_Y;
     int head_X;
     int head_Y;
-
 }snake;
-
 //define snake position 
 typedef struct snake_pos
 {
     int Y[V_Border*H_Border];
     int X[V_Border*H_Border];
-
 }snake_pos;
-
 //define treasure structure
 typedef struct Treasure
 {
@@ -51,7 +43,6 @@ typedef struct Treasure
     int X;
     int Y;
 } treasure;
-
 //Initialize snake
 void snake_init(snake *snake);
 //Initialize snake position
@@ -68,25 +59,19 @@ void move_tail(snake *snake, snake_pos *pos);
 void move_head(snake *snake, snake_pos *pos);
 //Game over when snake hits borders protoype
 int over(snake *snake, snake_pos *pos);
-
 //Treasure placement Signal Handler Protoype
 void treasure_placement(int);
 //Displays score in bottom left corner of screen
 void display_score(snake *snake);
-
 int keyboard_hit(void);
 void borders();
-
 time_t t;
-
 //Global so that SIGALRM can access
 treasure treasure1;
 snake snake1;
 snake_pos pos1;
-
 //Snake moving speed
 int snake_speed=90500;
-
 int main()
 {
     //Snake moving speed
@@ -94,14 +79,11 @@ int main()
       srand((unsigned) time (&t));
     
     //Initialize screen, snake, set cursor visibility to 0 and initial position of snake
-
       
       
-
       signal(SIGALRM,treasure_placement);
       alarm(1);
       
-
       snake_init(&snake1);
       init_pos(&pos1);
       initscr();
@@ -114,13 +96,11 @@ int main()
       borders();
     //Pipe keyboard into program without buffer
       raw();
-
         display_score(&snake1);
     //Runs in one direction until snake hits border
      
       while(!(over(&snake1,&pos1)))
       {
-
     //While no key pressed move snake in current direction, update speed of snake based on size of snake
     //(Jon Ventres)
           while (!keyboard_hit())
@@ -143,18 +123,14 @@ int main()
                  {
                      break;
                  }
-
           }
          //Add previous direction to snake direction and get new one
-
           snake1.prev_direction=snake1.direction;
           snake1.direction=getchar();
-
      }
       // Refresh the screen on termination
       refresh();
       endwin();
-
       return 0;
 }
 //Mike and Jon: Initializes the borders for the program (first and last column, first and last row, filled with *'s)
@@ -168,7 +144,6 @@ void borders()
         move_cur(COLS-1,i);
         printf("*");
     }
-
     for (int i=0; i<COLS-1; i++)
         {
         move_cur(i,0);
@@ -177,18 +152,15 @@ void borders()
         printf("*");
         }
 }
-
 //Initialize the snake  with a size of 3 and a random direction. (Dylan Fassio)
 void snake_init(snake *snake1)
 {
     srand(time(0));
     int init_dir = rand() % 4;
-
     snake1->symbol = 'X';
     snake1->size = 3;
     snake1->tail_X = V_Border/2;
     snake1->tail_Y = H_Border/2;
-
     switch (init_dir){
         case 0:
             snake1->direction = right;
@@ -214,7 +186,6 @@ void snake_init(snake *snake1)
             break;
     }
 }
-
 //Jon Ventres: Setup terminal connection attributes, treating keyboard inputs. Returns 1 if keys are hit, 0 if not.
 int keyboard_hit(void)
 {
@@ -232,7 +203,6 @@ int keyboard_hit(void)
   oldf = fcntl(STDIN_FILENO, F_GETFL, 0);
 //Set file descriptor flags to the value of oldf | non blocking mode
   fcntl(STDIN_FILENO, F_SETFL, oldf | O_NONBLOCK);
-
 //Set char = next input
   ch = getchar();
   tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
@@ -244,11 +214,8 @@ int keyboard_hit(void)
     return 1;
   }
   
-
-
   return 0;
 }
-
 //Jon Ventres: moves the snake to the cursor position
 void snake_loc(snake *snake1, snake_pos *pos1)
 {
@@ -260,17 +227,12 @@ void snake_loc(snake *snake1, snake_pos *pos1)
         pos1->Y[i]=snake1->tail_Y;
         snake1->tail_X+=1;
     }
-
 }
-
-
 //Mike and Jon: Moves the head and tail of the snake. used in the main method.
 void snake_move(snake *snake1, snake_pos *pos1, treasure *treasure1)
 {
     move_head(snake1,pos1);
     move_tail(snake1,pos1);
-
-
     //If snake hits treasure, grows by number of treasure (Mike Ronalter)
     if((snake1->head_X == treasure1->X) && (snake1->head_Y == treasure1->Y))
     {
@@ -283,15 +245,12 @@ void snake_move(snake *snake1, snake_pos *pos1, treasure *treasure1)
     
             move_head(snake1, pos1);
             move_tail(snake1, pos1);
-
     
             display_score(snake1);
    
         }
 }
-
-
-//moves the tail by printing " " at the end of the snake
+//Jon Ventres: moves the tail by printing " " at the end of the snake
 void move_tail(snake *snake1, snake_pos *pos1)
 {
     //remove last cell of tail
@@ -304,8 +263,6 @@ void move_tail(snake *snake1, snake_pos *pos1)
         pos1->Y[i]=pos1->Y[i+1];
     }
 }
-
-
 //Jon Ventres: moves the head in the direction specified by main method. if the user trues going in the opposite direction, it will end the game
 void move_head(snake *snake, snake_pos *pos)
 {
@@ -331,7 +288,6 @@ void move_head(snake *snake, snake_pos *pos)
                 }
                     snake->head_Y++;
                     break;
-
             //If character "d" entered and snake is moving left decrease x coordinate head-- else increase head++
             case right:
                 if (snake->direction==left)
@@ -350,34 +306,27 @@ void move_head(snake *snake, snake_pos *pos)
                 }
                     snake->head_X--;
                     break;
-
             default:
                  break;
         }
-
         pos->X[snake->size]=snake->head_X;
         pos->Y[snake->size]=snake->head_Y;
-
         move_cur(pos->X[snake->size],pos->Y[snake->size]);
         printf("%c",snake->symbol);        
 }
-
 //Jon Ventres: Set cursor to x,y and esc print
 void move_cur(int x,int y)
 {
     printf("\e[%d;%df",y,x);
 }
-
 //Jon Ventres: Copy the 0 unsigned char to sizeof onto pointer position
 void init_pos(snake_pos *position)
 {
     memset(position, 0, sizeof(*position));
 }
-
 //Jon and Dylan: Checks to see whether the snake has reached the borders, if the snake has crashed into itself, or if player wins
 int over(snake *snake1, snake_pos *pos1)
 {
-
     for (int i=0; i<snake1->size-1; ++i)
     {
         if ((pos1->X[i]==snake1->head_X) && (pos1->Y[i]==snake1->head_Y))
@@ -387,30 +336,27 @@ int over(snake *snake1, snake_pos *pos1)
     }
     int horiz = COLS-1;
     int vert = LINES-1;
-
     //Check to see if the snake head has reached either horizontal or vertical border
     if ((snake1->head_X==horiz) || (snake1->head_X==1) || (snake1->head_Y==vert) || (snake1->head_Y==1))
         {
             return 1;
         }
-    
+
+    if (snake1->size == 10)
     if (snake1->size == (V_Border + H_Border))
         return 1;
-    
+
     return 0;
 }
-
 //Places treasure randomly on board within borders, if snake does not get to in time, randomly moves to another space
 //Treasure randomly ranges between 1 and 9 and lasts # of seconds depending on treasure value (IE. 1 lasts 27 secs, 2 - 24 secs) (Mike Ronalter)
 void treasure_placement(int signum)
 {
        
-
      //Calls treasure_placement function when alarm finishes
      signal(SIGALRM, treasure_placement);
       
      int x, y, interval;
-
         //Does not fire if first time as there is no true previous x or previous y for treasure
         if(treasure1.prev_X != -1 || treasure1.prev_Y != -1)
         {
@@ -420,7 +366,6 @@ void treasure_placement(int signum)
         }
     
     interval = (rand() % 9) + 1; //1 - 9
-
     treasure1.treasure = interval;
     switch(interval){
         case 1:
@@ -459,7 +404,6 @@ void treasure_placement(int signum)
     treasure1.X = x;
    
     y = (rand() % (LINES-1)); 
-
     //keeps within screen
     if(y<2)
         y=2;
@@ -472,13 +416,11 @@ void treasure_placement(int signum)
     treasure1.prev_X = x;
     treasure1.prev_Y = y;
 }
-
 //prints score in bottom left corner of screen (Dylan Fassio)
 void display_score(snake *snake){
     move_cur(0, COLS-1);
     printf("Your score is: %d/260", (snake->size -3));
 }
-
 //Charles Lewis: Finished working code and did some minor bug fixes(User being able to press opposite direction arrow twice before game over was detected).
 //Mike Ronalter: Created border and intial setup of snake on screen moving to the right with size 3.
 //Jonathan Ventres: Created snake moving up, down, side to side, modified keyboard input, modified gotoxy and speed based on size.
